@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mora Chikankari | Handcrafted Elegance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mora: {
+                            primary: '#9F2C55',   /* Deep Rose */
+                            dark: '#701030',      /* Darker Rose for hover */
+                            light: '#FFF0F3',     /* Very Soft Pink */
+                            gold: '#C5A059',      /* Royal Gold */
+                            text: '#2D2D2D',      /* Softer Black */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Hide scrollbar for clean look but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.95); /* Increased opacity for mobile readability */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Scroll Reveal Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile Tap Highlight Fix */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Fix for Mobile Menu Overlay */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            /* Ensure it doesn't block clicks when hidden */
+            pointer-events: none; 
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="bg-white text-mora-text font-sans antialiased selection:bg-mora-primary selection:text-white">
+
+    <!-- Global Constants (Shopify URL) -->
+    <script>
+        // CLIENT'S OFFICIAL SHOPIFY URL
+        const SHOPIFY_URL = "https://mora-chikankari.myshopify.com/collections/all"; 
+        const WHATSAPP_NUMBER = "919833285208";
+    </script>
+
+    <!-- TOP BAR -->
+    <div class="bg-mora-primary text-white text-[10px] md:text-xs py-2 tracking-wider uppercase text-center md:text-left relative z-50">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <span class="hidden md:block">A unit of Lucknavi Andaaz!</span>
+            <span class="md:hidden">Authentic Chikankari from Lucknow</span>
+            <div class="flex space-x-6 mx-auto md:mx-0">
+                <span><i class="fas fa-truck mr-1"></i> Global Shipping</span>
+                <a href="https://wa.me/919833285208" class="hover:underline"><i class="fab fa-whatsapp mr-1"></i> +91 98332 85208</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODERN NAVBAR -->
+    <nav class="sticky top-0 z-40 glass transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-3 md:py-4 flex justify-between items-center relative">
+            <!-- Mobile Menu Button - Increased Z-Index and Padding -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-mora-primary text-2xl focus:outline-none p-2 -ml-2 z-50 relative" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Logo -->
+            <a href="#" onclick="showPage('home')" class="flex flex-col items-center md:items-start group z-40">
+                <span class="font-serif text-2xl md:text-3xl text-mora-primary font-bold tracking-tight">
+                    MORA <span class="font-light italic text-xl md:text-2xl text-gray-600">Chikankari</span>
+                </span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex space-x-10 text-sm font-bold uppercase tracking-widest text-gray-500">
+                <a href="#" onclick="showPage('home')" class="hover:text-mora-primary transition duration-300 relative group py-2">
+                    Home
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-mora-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="hover:text-mora-primary transition duration-300 relative group py-2">
+                    Shopify Store
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-mora-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#" onclick="showPage('story')" class="hover:text-mora-primary transition duration-300 relative group py-2">
+                    Our Story
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-mora-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <!-- Cart / CTA -->
+            <div class="flex items-center space-x-4 z-40">
+                <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="hidden md:block px-6 py-2 bg-mora-primary text-white rounded-full text-sm font-bold hover:bg-mora-dark transition shadow-lg hover:shadow-mora-primary/30 transform hover:-translate-y-0.5">
+                    Shop Now
+                </a>
+                <a href="https://wa.me/919833285208" target="_blank" class="md:hidden text-mora-primary text-3xl p-2 -mr-2" aria-label="Chat on WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay - Fixed Positioning and Interaction -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white z-50 transform -translate-x-full flex flex-col h-[100dvh] w-full">
+            <div class="p-6 flex justify-between items-center border-b border-gray-100">
+                <span class="font-serif text-2xl text-mora-primary font-bold">Menu</span>
+                <button onclick="toggleMobileMenu()" class="text-gray-500 text-3xl p-4 focus:outline-none" aria-label="Close Menu"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="flex flex-col p-8 space-y-6 text-lg font-serif text-gray-800 overflow-y-auto">
+                <a href="#" onclick="showPage('home'); toggleMobileMenu()" class="flex items-center gap-4 py-3 border-b border-gray-50"><i class="fas fa-home text-mora-primary w-6"></i> Home</a>
+                <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="flex items-center gap-4 py-3 border-b border-gray-50"><i class="fas fa-shopping-bag text-mora-primary w-6"></i> Shopify Store</a>
+                <a href="#" onclick="showPage('story'); toggleMobileMenu()" class="flex items-center gap-4 py-3 border-b border-gray-50"><i class="fas fa-book-open text-mora-primary w-6"></i> Our Story</a>
+                <a href="#" onclick="showPage('testimonials'); toggleMobileMenu()" class="flex items-center gap-4 py-3 border-b border-gray-50"><i class="fas fa-star text-mora-primary w-6"></i> Reviews</a>
+                <a href="#" onclick="showPage('contact'); toggleMobileMenu()" class="flex items-center gap-4 py-3 border-b border-gray-50"><i class="fas fa-envelope text-mora-primary w-6"></i> Contact</a>
+            </div>
+            <div class="mt-auto p-8 bg-mora-light border-t border-gray-200 pb-20 md:pb-8">
+                <p class="text-sm text-gray-500 mb-4 text-center">Connect with us</p>
+                <div class="flex space-x-8 text-3xl text-mora-primary justify-center">
+                    <a href="https://www.instagram.com/morachikankari" target="_blank" class="p-2"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/morachikankari4" target="_blank" class="p-2"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.youtube.com/@MoraChikankari" target="_blank" class="p-2"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===================== PAGE: HOME ===================== -->
+    <div id="page-home" class="page-section block">
+        
+        <!-- Hero Section -->
+        <section class="relative min-h-[90vh] flex items-center bg-mora-light/50 overflow-hidden pt-4 md:pt-0">
+            <!-- Decorative Blobs -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+            <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+
+            <div class="max-w-7xl mx-auto px-6 w-full grid md:grid-cols-2 gap-8 items-center relative z-10">
+                <!-- Text -->
+                <div class="order-2 md:order-1 space-y-6 text-center md:text-left reveal active">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-pink-100 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-gray-500">New Collection Live</span>
+                    </div>
+                    <h1 class="text-4xl md:text-7xl lg:text-8xl font-serif text-gray-900 leading-[1.1]">
+                        Timeless <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-mora-primary to-purple-600 italic pr-2">Lucknowi</span> Art
+                    </h1>
+                    <p class="text-base md:text-xl text-gray-600 max-w-lg mx-auto md:mx-0 font-light leading-relaxed">
+                        Hand-embroidered with love, tailored for the modern soul. Experience the royalty of authentic Chikankari.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4 w-full px-4 md:px-0">
+                        <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="block w-full sm:w-auto px-8 py-4 bg-mora-primary text-white rounded-full font-bold shadow-xl hover:shadow-2xl hover:bg-mora-dark transition transform hover:-translate-y-1 text-center">
+                            Shop The Collection
+                        </a>
+                        <a href="https://wa.me/919833285208" target="_blank" class="block w-full sm:w-auto px-8 py-4 bg-white text-mora-primary border-2 border-mora-primary rounded-full font-bold hover:bg-pink-50 transition flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp text-xl"></i> Chat with Stylist
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image Grid -->
+                <div class="order-1 md:order-2 relative h-[400px] md:h-[600px] w-full reveal active">
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 md:w-80 aspect-[3/4] bg-white p-2 shadow-2xl rotate-3 rounded-2xl z-20 transition hover:rotate-0 duration-500">
+                        <img src="uploaded:IMG-20251027-WA0007.jpg" class="w-full h-full object-cover rounded-xl" alt="Red Kurti">
+                    </div>
+                    <div class="absolute top-10 left-4 md:left-10 w-48 md:w-60 aspect-[3/4] bg-white p-2 shadow-xl -rotate-6 rounded-2xl z-10 opacity-90">
+                        <img src="uploaded:IMG-20251027-WA0005.jpg" class="w-full h-full object-cover rounded-xl" alt="Blue Kurti">
+                    </div>
+                    <div class="absolute bottom-10 right-4 md:right-10 w-48 md:w-60 aspect-[3/4] bg-white p-2 shadow-xl rotate-6 rounded-2xl z-10 opacity-90">
+                        <img src="uploaded:IMG-20251027-WA0006.jpg" class="w-full h-full object-cover rounded-xl" alt="Pastel Stack">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modern Category Strip -->
+        <section class="py-10 bg-white border-b border-gray-100">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex overflow-x-auto no-scrollbar space-x-6 md:justify-center pb-4">
+                    <!-- Category Item (All redirect to Shopify) -->
+                    <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="flex-shrink-0 flex flex-col items-center gap-3 cursor-pointer group min-w-[80px]">
+                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-mora-primary transition p-1">
+                            <img src="uploaded:IMG-20251027-WA0006.jpg" class="w-full h-full object-cover rounded-full" alt="Kurtis">
+                        </div>
+                        <span class="text-sm font-bold uppercase tracking-widest text-gray-600 group-hover:text-mora-primary">Kurtis</span>
+                    </a>
+                    <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="flex-shrink-0 flex flex-col items-center gap-3 cursor-pointer group min-w-[80px]">
+                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-mora-primary transition p-1">
+                            <img src="uploaded:IMG-20251027-WA0005.jpg" class="w-full h-full object-cover object-top rounded-full" alt="Men">
+                        </div>
+                        <span class="text-sm font-bold uppercase tracking-widest text-gray-600 group-hover:text-mora-primary">Men</span>
+                    </a>
+                    <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="flex-shrink-0 flex flex-col items-center gap-3 cursor-pointer group min-w-[80px]">
+                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-mora-primary transition p-1">
+                            <img src="uploaded:IMG-20251027-WA0008.jpg" class="w-full h-full object-cover rounded-full" alt="Kids">
+                        </div>
+                        <span class="text-sm font-bold uppercase tracking-widest text-gray-600 group-hover:text-mora-primary">Kids</span>
+                    </a>
+                    <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="flex-shrink-0 flex flex-col items-center gap-3 cursor-pointer group min-w-[80px]">
+                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-mora-primary transition p-1">
+                            <img src="https://placehold.co/400x400/9F2C55/FFFFFF?text=Saree" class="w-full h-full object-cover rounded-full" alt="Saree">
+                        </div>
+                        <span class="text-sm font-bold uppercase tracking-widest text-gray-600 group-hover:text-mora-primary">Sarees</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Product Highlight -->
+        <section class="py-20 bg-mora-light/50">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl md:text-5xl font-serif text-gray-900 mb-4">Trending Now</h2>
+                    <p class="text-gray-500">Handpicked favorites loved by our customers</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="group cursor-pointer reveal">
+                        <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="block relative overflow-hidden rounded-2xl mb-4">
+                            <img src="uploaded:IMG-20251027-WA0007.jpg" class="w-full h-[450px] object-cover transform group-hover:scale-105 transition duration-700" alt="Red Kurti">
+                            <div class="absolute inset-0 bg-black/20 md:opacity-0 md:group-hover:opacity-100 transition duration-300 flex items-end justify-center p-6 opacity-100">
+                                <span class="bg-white text-gray-900 w-full py-3 rounded-lg font-bold hover:bg-mora-primary hover:text-white transition text-center shadow-lg">Buy on Shopify</span>
+                            </div>
+                            <div class="absolute top-4 right-4 bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs font-bold shadow-sm">Bestseller</div>
+                        </a>
+                        <h3 class="text-xl font-serif text-gray-900">Royal Red Kurti</h3>
+                        <p class="text-mora-primary font-bold mt-1">₹ 2,499</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="group cursor-pointer reveal">
+                        <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="block relative overflow-hidden rounded-2xl mb-4">
+                            <img src="uploaded:IMG-20251027-WA0005.jpg" class="w-full h-[450px] object-cover object-top transform group-hover:scale-105 transition duration-700" alt="Blue Kurta">
+                            <div class="absolute inset-0 bg-black/20 md:opacity-0 md:group-hover:opacity-100 transition duration-300 flex items-end justify-center p-6 opacity-100">
+                                <span class="bg-white text-gray-900 w-full py-3 rounded-lg font-bold hover:bg-mora-primary hover:text-white transition text-center shadow-lg">Buy on Shopify</span>
+                            </div>
+                        </a>
+                        <h3 class="text-xl font-serif text-gray-900">Floral Blue Kurta (Men)</h3>
+                        <p class="text-mora-primary font-bold mt-1">₹ 1,899</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="group cursor-pointer reveal">
+                        <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="block relative overflow-hidden rounded-2xl mb-4">
+                            <img src="uploaded:IMG-20251027-WA0006.jpg" class="w-full h-[450px] object-cover transform group-hover:scale-105 transition duration-700" alt="Pastel Set">
+                            <div class="absolute inset-0 bg-black/20 md:opacity-0 md:group-hover:opacity-100 transition duration-300 flex items-end justify-center p-6 opacity-100">
+                                <span class="bg-white text-gray-900 w-full py-3 rounded-lg font-bold hover:bg-mora-primary hover:text-white transition text-center shadow-lg">Buy on Shopify</span>
+                            </div>
+                        </a>
+                        <h3 class="text-xl font-serif text-gray-900">Pastel Daily Wear Set</h3>
+                        <p class="text-mora-primary font-bold mt-1">₹ 1,299</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="inline-block border-b-2 border-gray-900 pb-1 text-gray-900 font-bold hover:text-mora-primary hover:border-mora-primary transition uppercase tracking-widest text-sm p-2">View All Products on Shopify</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================== PAGE: STORY ===================== -->
+    <div id="page-story" class="page-section hidden pt-10">
+        <div class="max-w-7xl mx-auto px-6 py-10">
+            <!-- Founder Intro -->
+            <div class="bg-mora-primary rounded-3xl text-white overflow-hidden shadow-2xl mb-20 animate-fade-in-up">
+                <div class="grid md:grid-cols-2 items-center">
+                    <div class="p-10 md:p-16 space-y-6 order-2 md:order-1">
+                        <h1 class="text-4xl md:text-6xl font-serif leading-tight">The Heart Behind <br> <span class="italic text-pink-200">The Brand</span></h1>
+                        <p class="text-pink-100 text-lg leading-relaxed">
+                            "Mora Chikankari is a dream of two passionate people, Mohit & Ratika. We started this journey to turn cultural roots into everyday fashion."
+                        </p>
+                        <div class="pt-4">
+                            <p class="font-bold text-xl">Ratika Tandon</p>
+                            <p class="text-pink-200 text-sm tracking-widest uppercase">Founder</p>
+                        </div>
+                    </div>
+                    <div class="h-96 md:h-full bg-pink-900 relative order-1 md:order-2">
+                        <img src="uploaded:WhatsApp Image 2025-11-04 at 17.53.46_88ff193f.jpg" class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-overlay" alt="Founder">
+                        <img src="uploaded:WhatsApp Image 2025-11-04 at 17.53.46_88ff193f.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Founder">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process Steps (Modern Timeline) -->
+            <div class="max-w-4xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s">
+                <h2 class="text-3xl md:text-4xl font-serif text-center text-gray-900 mb-16">The Art of Creation</h2>
+                
+                <div class="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-300 before:to-transparent">
+                    
+                    <!-- Step 1 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-gray-100 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 text-2xl">🎨</div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition border border-gray-100 ml-auto md:ml-0">
+                            <h3 class="font-bold text-gray-900 text-lg">1. Block Printing</h3>
+                            <p class="text-gray-500 text-sm mt-2">The design is stamped onto the fabric using traditional wooden blocks.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-gray-100 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 text-2xl">🪡</div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition border border-gray-100 ml-auto md:ml-0">
+                            <h3 class="font-bold text-gray-900 text-lg">2. Hand Embroidery</h3>
+                            <p class="text-gray-500 text-sm mt-2">Artisans meticulously stitch patterns like Bakhiya, Phanda, and Jaali.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-gray-100 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 text-2xl">✨</div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition border border-gray-100 ml-auto md:ml-0">
+                            <h3 class="font-bold text-gray-900 text-lg">3. Washing & Finishing</h3>
+                            <p class="text-gray-500 text-sm mt-2">Washed in running water to remove ink, then starched and ironed for perfection.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== PAGE: REVIEWS ===================== -->
+    <div id="page-testimonials" class="page-section hidden pt-10">
+        <div class="max-w-7xl mx-auto px-6 py-10 text-center animate-fade-in-up">
+            <h2 class="text-4xl font-serif text-gray-900 mb-4">Loved by 10,000+ Women</h2>
+            <p class="text-gray-500 mb-16">Don't just take our word for it.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-50 text-left">
+                    <div class="flex text-yellow-400 mb-4 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-gray-600 italic mb-6">"Beautiful Chikankari designs... Affordable pricing... Very humble attitude. You have it all MORA. Even the cute studio of yours is very positive."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center font-bold text-mora-primary">MP</div>
+                        <span class="font-bold text-gray-900">Monal Patil</span>
+                    </div>
+                </div>
+                <div class="bg-mora-primary p-8 rounded-2xl shadow-xl text-left text-white transform md:-translate-y-4">
+                    <div class="flex text-yellow-400 mb-4 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-pink-100 italic mb-6">"Got a short kurti from Mora Chikankari and I must tell you that the fabric was so good! Quality was really good! Loved the texture!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-mora-primary">AP</div>
+                        <span class="font-bold">Aarti Pawar</span>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-50 text-left">
+                    <div class="flex text-yellow-400 mb-4 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-gray-600 italic mb-6">"Purchased 2 salwar suits for my kids and they want to repeat the dress in every occasion. Going to comeback to you soon for more purchases."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center font-bold text-mora-primary">PJ</div>
+                        <span class="font-bold text-gray-900">Payel Jain</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== PAGE: CONTACT ===================== -->
+    <div id="page-contact" class="page-section hidden pt-10">
+        <div class="max-w-4xl mx-auto px-6 py-10 animate-fade-in-up">
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+                <div class="grid md:grid-cols-2">
+                    <div class="p-10 md:p-12 bg-mora-primary text-white">
+                        <h2 class="text-3xl font-serif mb-6">Get in Touch</h2>
+                        <p class="text-pink-100 mb-8">Have a custom requirement or a bulk order? We'd love to hear from you.</p>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <i class="fas fa-map-marker-alt mt-1 text-mora-gold"></i>
+                                <div>
+                                    <h4 class="font-bold">Visit Us</h4>
+                                    <p class="text-sm text-pink-100">Shop 104, Boston, Thane, Maharashtra.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <i class="fas fa-phone-alt mt-1 text-mora-gold"></i>
+                                <div>
+                                    <h4 class="font-bold">Call Us</h4>
+                                    <p class="text-sm text-pink-100"><a href="tel:919833285208" class="hover:underline">+91 98332 85208</a></p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <i class="fas fa-envelope mt-1 text-mora-gold"></i>
+                                <div>
+                                    <h4 class="font-bold">Email</h4>
+                                    <p class="text-sm text-pink-100"><a href="mailto:morachikankari@gmail.com" class="hover:underline">morachikankari@gmail.com</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-10 md:p-12">
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">Name</label>
+                                <input type="text" class="w-full border-gray-300 rounded-lg bg-gray-50 p-3 focus:ring-2 focus:ring-mora-primary outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">Phone</label>
+                                <input type="tel" class="w-full border-gray-300 rounded-lg bg-gray-50 p-3 focus:ring-2 focus:ring-mora-primary outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">Message</label>
+                                <textarea rows="3" class="w-full border-gray-300 rounded-lg bg-gray-50 p-3 focus:ring-2 focus:ring-mora-primary outline-none transition"></textarea>
+                            </div>
+                            <button type="button" onclick="alert('Thank you! We will contact you shortly.')" class="w-full bg-mora-primary text-white font-bold py-3 rounded-lg hover:bg-mora-dark transition">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PURCHASE MODAL (For Custom Orders ONLY) -->
+    <div id="purchase-modal" class="fixed inset-0 bg-black/60 hidden z-[60] flex items-center justify-center backdrop-blur-sm px-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl transform scale-95 transition-transform duration-300 relative">
+            <button onclick="closePurchaseModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl p-2">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <h3 class="text-3xl font-serif text-gray-900 mb-2">Buy Now</h3>
+                <p class="text-sm text-gray-500">Choose your preferred way to shop.</p>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded-lg mb-6 border border-gray-200 flex justify-between items-center">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Selected Item</p>
+                    <p id="modal-product-name" class="font-bold text-gray-900 text-lg">Product Name</p>
+                </div>
+                <div class="h-10 w-10 bg-mora-light rounded-md border border-gray-200 flex items-center justify-center text-mora-primary"><i class="fas fa-tag"></i></div>
+            </div>
+
+            <div class="space-y-3">
+                <a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="block w-full bg-mora-primary text-white py-4 rounded-xl font-bold hover:bg-mora-dark transition text-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    <i class="fas fa-shopping-bag text-xl mr-2"></i> Buy on Shopify
+                </a>
+                
+                <div class="text-center text-sm text-gray-400 font-medium py-2">OR</div>
+                
+                <button onclick="confirmPurchase('whatsapp-custom')" class="w-full bg-[#25D366] text-white py-4 rounded-xl font-bold hover:bg-[#128C7E] transition flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    <i class="fab fa-whatsapp text-xl"></i> Chat for Custom Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-16 mt-12">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
+            <div class="col-span-1 md:col-span-2">
+                <span class="font-serif text-3xl font-bold text-white mb-4 block">MORA Chikankari</span>
+                <p class="text-gray-400 text-sm max-w-xs leading-relaxed">
+                    Authentic handcrafted elegance from Lucknow to the world. Empowering artisans, styling you.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-sm">Explore</h4>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><a href="#" onclick="showPage('home')" class="hover:text-mora-primary transition">Home</a></li>
+                    <li><a href="https://mora-chikankari.myshopify.com/collections/all" target="_blank" class="hover:text-mora-primary transition">Shopify Store</a></li>
+                    <li><a href="#" onclick="showPage('story')" class="hover:text-mora-primary transition">Our Story</a></li>
+                    <li><a href="#" onclick="showPage('contact')" class="hover:text-mora-primary transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-sm">Follow Us</h4>
+                <div class="flex space-x-4 text-xl">
+                    <a href="https://www.instagram.com/morachikankari" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-mora-primary transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/morachikankari4" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/@MoraChikankari" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-red-600 transition"><i class="fab fa-youtube"></i></a>
+                </div>
+                <p class="text-xs text-gray-600 mt-8">&copy; 2025 Mora Chikankari.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Global Variables
+        let selectedProduct = { name: '' };
+        const MODAL = document.getElementById('purchase-modal');
+        const MODAL_CONTENT = MODAL.querySelector('div');
+        
+        // Router Logic
+        function showPage(pageId) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(el => {
+                if (el.id === 'page-' + pageId) {
+                    el.classList.remove('hidden');
+                    el.classList.add('block', 'animate-fade-in-up');
+                } else {
+                    el.classList.add('hidden');
+                    el.classList.remove('block');
+                }
+            });
+        }
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            // Check if we are opening or closing
+            const isOpening = menu.classList.contains('-translate-x-full');
+            
+            if (isOpening) {
+                menu.classList.remove('-translate-x-full');
+                menu.classList.add('open'); // Add 'open' class for pointer events
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            } else {
+                menu.classList.add('-translate-x-full');
+                menu.classList.remove('open'); // Remove 'open' class
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Purchase Modal Functions
+        function openPurchaseModal(productName) {
+            selectedProduct.name = productName;
+            document.getElementById('modal-product-name').innerText = productName;
+            
+            MODAL.classList.remove('hidden', 'pointer-events-none', 'opacity-0');
+            MODAL.classList.add('opacity-100', 'pointer-events-auto');
+            MODAL_CONTENT.classList.remove('scale-95');
+            MODAL_CONTENT.classList.add('scale-100');
+        }
+
+        function closePurchaseModal() {
+            MODAL.classList.remove('opacity-100', 'pointer-events-auto');
+            MODAL.classList.add('opacity-0', 'pointer-events-none');
+            MODAL_CONTENT.classList.remove('scale-100');
+            MODAL_CONTENT.classList.add('scale-95');
+            
+            setTimeout(() => {
+                MODAL.classList.add('hidden');
+            }, 300);
+        }
+
+        function confirmPurchase(method) {
+            if (method === 'whatsapp-custom') {
+                // Open WhatsApp for custom order discussion
+                const msg = `Hi Mora Chikankari, I have a custom order query for the *${selectedProduct.name}*. Can we discuss sizing/design details?`;
+                const url = `https://wa.me/919833285208?text=${encodeURIComponent(msg)}`;
+                window.open(url, '_blank');
+            }
+             closePurchaseModal(); 
+        }
+
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Initial Load
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
